@@ -170,28 +170,6 @@ All tests pass successfully in Test Explorer.
 
 ---
 
-# Screenshots
-
-## Dashboard
-
-* Displays total clients
-* Displays total contracts
-* Displays total service requests
-* Includes analytics charts
-
-## Contract Module
-
-* Contract filtering
-* PDF agreement uploads
-* Service level display
-
-## Service Requests
-
-* Currency conversion
-* Workflow validation
-
----
-
 # Setup Instructions
 
 ## Clone Repository

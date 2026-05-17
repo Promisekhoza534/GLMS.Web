@@ -1,0 +1,70 @@
+﻿@model GLMS.Web.Models.ServiceRequest
+
+@{
+    ViewData["Title"] = "Edit Service Request";
+}
+
+<h1>Edit Service Request</h1>
+
+<div class="form-page">
+    <form asp-action="Edit">
+        <input type="hidden" asp-for="ServiceRequestId" />
+
+        <div class="form-group mb-3">
+            <label asp-for="RequestTitle" class="control-label"></label>
+            <input asp-for="RequestTitle" class="form-control" />
+            <span asp-validation-for="RequestTitle" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Description" class="control-label"></label>
+            <textarea asp-for="Description" class="form-control"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="RequestDate" class="control-label"></label>
+            <input asp-for="RequestDate" class="form-control" type="date" />
+            <span asp-validation-for="RequestDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ContractId" class="control-label"></label>
+            <select asp-for="ContractId" class="form-control" asp-items="ViewBag.ContractId"></select>
+            <span asp-validation-for="ContractId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Status" class="control-label"></label>
+            <select asp-for="Status" class="form-control">
+                <option value="Pending" selected="@(Model.Status == "Pending")">Pending</option>
+                <option value="Approved" selected="@(Model.Status == "Approved")">Approved</option>
+                <option value="Completed" selected="@(Model.Status == "Completed")">Completed</option>
+                <option value="Rejected" selected="@(Model.Status == "Rejected")">Rejected</option>
+            </select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="AmountUsd" class="control-label"></label>
+            <input asp-for="AmountUsd" class="form-control" />
+            <span asp-validation-for="AmountUsd" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="control-label">Amount in ZAR</label>
+            <input value="@(Model.AmountZar.HasValue? Model.AmountZar.Value.ToString("N2") : "Not converted")"
+                   class="form-control" readonly />
+            <small class="text-muted">This amount is calculated automatically from the USD value.</small>
+        </div>
+
+        <button type="submit" class="btn btn-success me-2">Save Changes</button>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

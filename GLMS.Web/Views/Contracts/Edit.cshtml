@@ -1,0 +1,76 @@
+﻿@model GLMS.Web.Models.Contract
+
+@{
+    ViewData["Title"] = "Edit Contract";
+}
+
+<h1>Edit Contract</h1>
+
+<div class="form-page">
+    <form asp-action="Edit" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ContractId" />
+
+        <div class="form-group mb-3">
+            <label asp-for="ContractNumber" class="control-label"></label>
+            <input asp-for="ContractNumber" class="form-control" />
+            <span asp-validation-for="ContractNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ClientId" class="control-label"></label>
+            <select asp-for="ClientId" class="form-control" asp-items="ViewBag.ClientId"></select>
+            <span asp-validation-for="ClientId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Status" class="control-label"></label>
+            <select asp-for="Status" class="form-control" asp-items="ViewBag.Statuses"></select>
+            <span asp-validation-for="Status" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ServiceLevel" class="control-label"></label>
+            <select asp-for="ServiceLevel" class="form-control">
+                <option value="Standard">Standard</option>
+                <option value="Premium">Premium</option>
+                <option value="Enterprise">Enterprise</option>
+            </select>
+            <span asp-validation-for="ServiceLevel" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="StartDate" class="control-label"></label>
+            <input asp-for="StartDate" class="form-control" type="date" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="EndDate" class="control-label"></label>
+            <input asp-for="EndDate" class="form-control" type="date" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="control-label">Replace Signed Agreement PDF</label>
+            <input type="file" name="signedAgreement" class="form-control" accept=".pdf" />
+            <span asp-validation-for="SignedAgreementFileName" class="text-danger"></span>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.SignedAgreementFileName))
+        {
+            <p>
+                Existing file:
+                <a asp-action="DownloadAgreement" asp-route-id="@Model.ContractId">Download PDF</a>
+            </p>
+        }
+
+        <button type="submit" class="btn btn-success me-2">Save Changes</button>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

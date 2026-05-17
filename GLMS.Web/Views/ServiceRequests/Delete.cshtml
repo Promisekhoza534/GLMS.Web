@@ -1,0 +1,29 @@
+﻿@model GLMS.Web.Models.ServiceRequest
+
+@{
+    ViewData["Title"] = "Delete Service Request";
+}
+
+<h1>Delete Service Request</h1>
+
+<div class="alert alert-warning">
+    Are you sure you want to delete this service request?
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Title:</strong> @Model.RequestTitle</p>
+        <p><strong>Contract:</strong> @Model.Contract?.ContractNumber</p>
+        <p><strong>Client:</strong> @Model.Contract?.Client?.CompanyName</p>
+        <p><strong>Status:</strong> @Model.Status</p>
+        <p><strong>Amount USD:</strong> @Model.AmountUsd.ToString("N2")</p>
+    </div>
+</div>
+
+<br />
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="ServiceRequestId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

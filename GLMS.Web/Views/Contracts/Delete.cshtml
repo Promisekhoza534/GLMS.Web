@@ -1,0 +1,29 @@
+﻿@model GLMS.Web.Models.Contract
+
+@{
+    ViewData["Title"] = "Delete Contract";
+}
+
+<h1>Delete Contract</h1>
+
+<div class="alert alert-warning">
+    Are you sure you want to delete this contract?
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Contract Number:</strong> @Model.ContractNumber</p>
+        <p><strong>Client:</strong> @Model.Client?.CompanyName</p>
+        <p><strong>Status:</strong> @Model.Status</p>
+        <p><strong>Start Date:</strong> @Model.StartDate.ToString("yyyy-MM-dd")</p>
+        <p><strong>End Date:</strong> @Model.EndDate.ToString("yyyy-MM-dd")</p>
+    </div>
+</div>
+
+<br />
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="ContractId" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

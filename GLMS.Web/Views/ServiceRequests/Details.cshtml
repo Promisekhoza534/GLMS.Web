@@ -1,0 +1,25 @@
+﻿@model GLMS.Web.Models.ServiceRequest
+
+@{
+    ViewData["Title"] = "Service Request Details";
+}
+
+<h1>Service Request Details</h1>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Title:</strong> @Model.RequestTitle</p>
+        <p><strong>Description:</strong> @Model.Description</p>
+        <p><strong>Contract:</strong> @Model.Contract?.ContractNumber</p>
+        <p><strong>Client:</strong> @Model.Contract?.Client?.CompanyName</p>
+        <p><strong>Request Date:</strong> @Model.RequestDate.ToString("yyyy-MM-dd")</p>
+        <p><strong>Status:</strong> @Model.Status</p>
+        <p><strong>Amount USD:</strong> @Model.AmountUsd.ToString("N2")</p>
+        <p><strong>Amount ZAR:</strong> @(Model.AmountZar.HasValue? Model.AmountZar.Value.ToString("N2") : "Not converted")</p>
+    </div>
+</div>
+
+<br />
+
+<a asp-action="Edit" asp-route-id="@Model.ServiceRequestId" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<GLMS.Web.Models.ServiceRequest>
+
+@{
+    ViewData["Title"] = "Service Requests";
+}
+
+<h1>Service Requests</h1>
+
+<p class="text-muted">
+    Create and track service requests linked to active contracts.
+</p>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Service Request</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Contract</th>
+            <th>Client</th>
+            <th>Request Date</th>
+            <th>Status</th>
+            <th>Amount USD</th>
+            <th>Amount ZAR</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.RequestTitle</td>
+                <td>@item.Contract?.ContractNumber</td>
+                <td>@item.Contract?.Client?.CompanyName</td>
+                <td>@item.RequestDate.ToString("yyyy-MM-dd")</td>
+                <td>
+                    @if (item.Status == "Active")
+                    {
+                        <span class="badge bg-success">Active</span>
+                    }
+                    else if (item.Status == "Draft")
+                    {
+                        <span class="badge bg-warning text-dark">Draft</span>
+                    }
+                    else if (item.Status == "Expired")
+                    {
+                        <span class="badge bg-danger">Expired</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">On Hold</span>
+                    }
+                </td>
+                <td>@item.AmountUsd.ToString("N2")</td>
+                <td>@(item.AmountZar.HasValue? item.AmountZar.Value.ToString("N2") : "Not converted")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ServiceRequestId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ServiceRequestId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ServiceRequestId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

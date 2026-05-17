@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="page-header">
+    <h1>TechMove GLMS Dashboard</h1>
+    <p>
+        Global Logistics Management System for managing clients, contracts,
+        service requests, signed agreements and currency conversion.
+    </p>
+</div>
+
+
+<div class="dashboard-grid">
+    <div class="dashboard-card">
+        <h3>👥 Clients</h3>
+        <p>@ViewBag.TotalClients</p>
+        <a asp-controller="Clients" asp-action="Index" class="btn btn-primary mt-3">Open Clients</a>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>📄 Contracts</h3>
+        <p>@ViewBag.TotalContracts</p>
+        <a asp-controller="Contracts" asp-action="Index" class="btn btn-primary mt-3">Open Contracts</a>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>🚚 Service Requests</h3>
+        <p>@ViewBag.ServiceRequests</p>
+        <a asp-controller="ServiceRequests" asp-action="Index" class="btn btn-primary mt-3">Open Requests</a>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>✅ Active Contracts</h3>
+        <p>@ViewBag.ActiveContracts</p>
+        <a asp-controller="Contracts" asp-action="Index" asp-route-status="Active" class="btn btn-success mt-3">View Active</a>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6 mb-4">
+        <div class="card p-4 chart-card">
+            <h4>Contract Status Overview</h4>
+            <div class="chart-container">
+                <canvas id="contractStatusChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card p-4 chart-card">
+            <h4>System Records Overview</h4>
+            <div class="chart-container">
+                <canvas id="systemRecordsChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const contractStatusChart = document.getElementById('contractStatusChart');
+
+    new Chart(contractStatusChart, {
+    type: 'doughnut',
+    data: {
+    labels: ['Active', 'Draft', 'Expired', 'On Hold'],
+    datasets: [{
+    data: [
+    @ViewBag.ActiveContracts,
+    @ViewBag.DraftContracts,
+    @ViewBag.ExpiredContracts,
+    @ViewBag.OnHoldContracts
+    ]
+    }]
+    },
+    options: {
+    responsive: true,
+    maintainAspectRatio: false
+    }
+    });
+    const systemRecordsChart = document.getElementById('systemRecordsChart');
+
+    new Chart(systemRecordsChart, {
+    type: 'bar',
+    data: {
+    labels: ['Clients', 'Contracts', 'Service Requests'],
+    datasets: [{
+    label: 'Total Records',
+    data: [
+    @ViewBag.TotalClients,
+    @ViewBag.TotalContracts,
+    @ViewBag.ServiceRequests
+    ]
+    }]
+    },
+    options: {
+    responsive: true,
+    maintainAspectRatio: false
+    }
+    });
+</script>

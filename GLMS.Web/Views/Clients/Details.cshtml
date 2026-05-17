@@ -1,0 +1,22 @@
+﻿@model GLMS.Web.Models.Client
+
+@{
+    ViewData["Title"] = "Client Details";
+}
+
+<h1>Client Details</h1>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Company Name:</strong> @Model.CompanyName</p>
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Phone Number:</strong> @Model.PhoneNumber</p>
+        <p><strong>Address:</strong> @Model.Address</p>
+        <p><strong>Region:</strong> @Model.Region</p>
+    </div>
+</div>
+
+<br />
+
+<a asp-action="Edit" asp-route-id="@Model.ClientId" class="btn btn-primary">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back</a>
